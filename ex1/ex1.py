@@ -11,11 +11,11 @@ t = arange(0,3.001,step=.001)
 def f(t):
   return (14*t)*(e**(t-2)) - 12*(e**(t-2)) - 7*(t**3) + 20*(t**2) - 26*t + 12
 
-plt.xlabel("x")
-plt.ylabel("f(x)")
-plt.plot(t, f(t))
-plt.grid(True)
-plt.show()
+# plt.xlabel("x")
+# plt.ylabel("f(x)")
+# plt.plot(t, f(t))
+# plt.grid(True)
+# plt.show()
 
 def dixotomisi(a, b):
   root = (a + b) / 2
@@ -38,9 +38,14 @@ print("Root in [1.5,3]: %s" % (dixotomisi(1.5,3)))
 def f_der(t):
   return (14*t)*(e**(t-2)) + 2*(e**(t-2)) - 21*(t**2) + 40*t - 26
 
+def f_der_2(t):
+  return (14*t)*(e**(t-2)) - 16*(e**(t-2)) - 42*t + 40
+
 # plt.xlabel("x")
 # plt.ylabel("f'(x)")
-# plt.plot(t, f_der(t))
+# plt.plot(t, f(t), c='r')
+# plt.plot(t, f_der(t), c='g')
+# plt.plot(t, f_der_2(t), c='b')
 # plt.grid(True)
 # plt.show()
 
