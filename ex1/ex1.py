@@ -17,7 +17,7 @@ plt.plot(t, f(t))
 plt.grid(True)
 plt.show()
 
-def dixotomisi(a, b):
+def bisect(a, b):
   root = (a + b) / 2
 
   # number of times to repeat to achieve 6 points accuracy
@@ -32,8 +32,8 @@ def dixotomisi(a, b):
 
   return ("f(%.6f) = %.6f" % (root, f(root)))
 
-print("Root in [0,1.5]: %s" % (dixotomisi(0,1.5)))
-print("Root in [1.5,3]: %s" % (dixotomisi(1.5,3)))
+print("Root in [0,1.5]: %s" % (bisect(0,1.5)))
+print("Root in [1.5,3]: %s" % (bisect(1.5,3)))
 
 def f_der(t):
   return (14*t)*(e**(t-2)) + 2*(e**(t-2)) - 21*(t**2) + 40*t - 26
