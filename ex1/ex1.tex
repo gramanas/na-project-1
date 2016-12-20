@@ -11,9 +11,7 @@
 \usepackage{xltxtra}
 \usepackage{xgreek}
 \setmainfont[Mapping=tex-text]{GFS Didot}
-%\setmainfont[Mapping=tex-text]{Gentium}
 \setmonofont[Mapping=tex-text]{Source Code Pro}
-%\usepackage[small]{caption}
 \author{gramanas}
 \date{\today}
 \title{Άσκηση 1}
@@ -41,14 +39,14 @@
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)  
   language=python,                 % the language of the code
   morekeywords={*,...},            % if you want to add more keywords to the set
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                   % how far the line-numbers are from the code
-  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  %numbersep=5pt,                   % how far the line-numbers are from the code
+  %numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  %stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
   rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
   showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
   showstringspaces=false,          % underline spaces within strings only
   showtabs=false,                  % show tabs within strings adding particular underscores
-  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
   stringstyle=\color{mymauve},     % string literal style
   tabsize=2,	                   % sets default tabsize to 2 spaces
   %title=\footnotesize\ttfamily> \lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
@@ -60,25 +58,50 @@
 
 \lstinputlisting[firstline=1, lastline=8]{ex1.py}
 
-Η συνάρτηση ορίζεται και γίνεται το plot της:
+Η συνάρτηση και οι 2 πρώτες παράγωγοι
+ορίζονται και γίνεται το plot της $f(x)$:
 
-\lstinputlisting[firstline=9, lastline=18, firstnumber=last]{ex1.py}
+\lstinputlisting[firstline=9, lastline=24]{ex1.py}
 \begin{center}
-\includegraphics[scale = 0.8]{plot.png}
+\includegraphics[width=\linewidth, height=9cm]{plot.png}
 \end{center}
 
-Στο πρώτο κομάτι της άσκησης η προσέγγιση της ρίζας γίνετε με την μέθοδο της διχοτόμησης:
+Καθώς η άσκηση δεν το απαιτεί δεν υπάρχουν έλεγχοι για σφάλματα
+ούτε συνθήκες τερματισμού σε περίπτωση που δεν υπάρχουν ρίζες.
 
-\lstinputlisting[firstline=20, lastline=36, firstnumber=20]{ex1.py}
+Ακολουθεί η συνάρτηση για διχοτόμηση:
+\lstinputlisting[firstline=26, lastline=41]{ex1.py}
+
+Απλά γίνετε η εγαρμογή του θεωρήματος για
+$N = {{\ln{b-a} - \ln{error}}\over{\ln{2}}}$ φορές
+
+Στην συνέχεια έχω τη συνάρτηση για την μέθοδο Newton-Raphson:
+\lstinputlisting[firstline=42, lastline=55]{ex1.py}
+
+Εδώ αρχικοποιώ τον πίνακα \texttt{temp\_l} με την τιμή
+εισόδου της συνάρτησης και το αποτέλεσμα μιας πρώτης εφαρμογής της
+αναδρομικής συνάρτησης $$f(x_{n}) = f(x_{n-1}) - {{f(x_{n-1})} \over {f'(x_{n-1})}}$$
+Στην συνέχεια με τον έλεγχο στο while η συνάρτηση θα τρέχει μέχρι να
+επιτευχθεί η επιθυμιτή ακρίβεια (6 δεκαδικά ψηδία)
+
+Επιστρέφω την ρίζα, τον αριθμό επαναλήψεων και το σημείο εκκίνησης.
+\textcolor{mygray}{
+\begin{footnotesize}
+  Ο αριθμός επαναλήψεων είναι Ν-1 γιατί η αύξηση του δείκτη γίνεται
+  στο τέλος του \texttt{while} ενώ ξεκινάει με τον δείκτη στο 1 αντι του 0
+  για να μπορεί να γίνει ο έλεγχος
+\end{footnotesize}}
+\newpage
+Ακολουθέι η συνάρτηση της μεθόδου της τέμνουσας:
+\lstinputlisting[firstline=56, lastline=70]{ex1.py}
+
+
 
 \begin{lstlisting}[language=bash, numbers=none, mathescape=true]
 $\dollar$ python ex1.py
-$\dollar$ f(0.952374) = 0.000000
+$\dollar$ $f(0.952374)$ = 0.000000
 \end{lstlisting}
 
-Στην συνέχεια υπολογίζω τις ρίζες με την μέθοδο Newton-Raphson:
-
-A change!
 \end{document}
 
 %%% Local Variables:
