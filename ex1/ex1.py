@@ -51,11 +51,11 @@ def f_der_2(t):
 
 # plt.xlabel("x")
 # plt.ylabel("f'(x)")
-# plt.plot(t, f(t), c='r')
-# plt.plot(t, f_der(t), c='g')
-# plt.plot(t, f_der_2(t), c='b')
-# plt.grid(True)
-# plt.show()
+plt.plot(t, f(t), c='r')
+#plt.plot(t, f_der(t), c='g')
+#plt.plot(t, f_der_2(t), c='b')
+plt.grid(True)
+plt.show()
 
 def new_raph(start):
   temp_l = [start, start - (f(start)/f_der(start))]
@@ -73,11 +73,11 @@ def new_raph(start):
 print("\n++++ Newton - Raphson ++++\n")
 
 root, loops, start = new_raph(1)
-print("Starting at %.2f and \nafter %d iterations the root is: f(%.6f) = %.6f\n"
+print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f\n"
       % (start, loops, root, f(root)))
   
 root, loops, start = new_raph(3)
-print("Starting at %.2f and \nafter %d iterations the root is: f(%.6f) = %.6f"
+print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f"
       % (start, loops, root, f(root)))
 
 def intersection(a, b):
@@ -97,4 +97,4 @@ def intersection(a, b):
   root = temp_l[-1]
   return root, N, a, b 
 
-print(intersection(.5,1))
+print(intersection(0,3))
