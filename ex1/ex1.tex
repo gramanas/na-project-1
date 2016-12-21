@@ -1,82 +1,30 @@
-\documentclass[12pt]{article}
-%\usepackage[a4paper,left = 3.5cm,right = 2.5cm,top = 3cm,totalwidth = 15cm,totalheight = 23cm,hoffset = 0pt,voffset = 0pt]{geometry}
-\usepackage{fullpage}
-\usepackage{pdfpages}
-\usepackage[T1]{fontenc}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{listings}
-\usepackage[cm-default]{fontspec}
-\usepackage{xunicode}
-\usepackage{xltxtra}
-\usepackage{xgreek}
-\setmainfont[Mapping=tex-text]{GFS Didot}
-\setmonofont[Mapping=tex-text]{Source Code Pro}
-\author{gramanas}
-\date{\today}
-\title{Άσκηση 1}
-
-\definecolor{mycomment}{HTML}{7A7A7A}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
-\definecolor{background}{HTML}{EEEEEE}
-
-\newcommand{\dollar}{\mbox{\textdollar}}
-
-\begin{document}
-\lstset{ %
-  keywordstyle=\color{blue},       % keyword style
-  backgroundcolor=\color{background},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
-  basicstyle=\footnotesize\ttfamily,        % the size of the fonts that are used for the code
-  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                 % sets automatic line breaking
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mycomment},    % comment style
-  deletekeywords={...},            % if you want to delete keywords from the given language
-  escapeinside={\%*}{*},           % if you want to add LaTeX within your code
-  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  frame=false,	                   % adds a frame around the code
-  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)  
-  language=python,                 % the language of the code
-  morekeywords={*,...},            % if you want to add more keywords to the set
-  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
-  %numbersep=5pt,                   % how far the line-numbers are from the code
-  %numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
-  %stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
-  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,          % underline spaces within strings only
-  showtabs=false,                  % show tabs within strings adding particular underscores
-  stringstyle=\color{mymauve},     % string literal style
-  tabsize=2,	                   % sets default tabsize to 2 spaces
-  %title=\footnotesize\ttfamily> \lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
-  % caption='Sample code'
-}
+\section{Άσκηση 1}
 
 Στην αρχή έχω τα απαραίτητα imports για \texttt{numpy}, \texttt{scipy} και
 \texttt{matplotlib}:
 
-\lstinputlisting[firstline=1, lastline=8]{ex1.py}
+\lstinputlisting[firstline=1, lastline=8]{ex1/ex1.py}
 
 Η συνάρτηση και οι 2 πρώτες παράγωγοι
 ορίζονται και γίνεται το plot της $f(x)$:
 
-\lstinputlisting[firstline=9, lastline=24]{ex1.py}
+\lstinputlisting[firstline=9, lastline=24]{ex1/ex1.py}
 \begin{center}
-\includegraphics[width=\linewidth, height=9cm]{plot.png}
+\includegraphics[width=\linewidth, height=9cm]{ex1/plot.png}
 \end{center}
 
 Καθώς η άσκηση δεν το απαιτεί δεν υπάρχουν έλεγχοι για σφάλματα
 ούτε συνθήκες τερματισμού σε περίπτωση που δεν υπάρχουν ρίζες.
-
+\subsection{Διχοτόμηση}
 Ακολουθεί η συνάρτηση για διχοτόμηση:
-\lstinputlisting[firstline=26, lastline=41]{ex1.py}
+\lstinputlisting[firstline=26, lastline=41]{ex1/ex1.py}
 
 Απλά γίνετε η εγαρμογή του θεωρήματος για
-$N = {{\ln{b-a} - \ln{error}}\over{\ln{2}}}$ φορές
-
+$N = {{\ln{(b-a)} - \ln{(error)}}\over{\ln{2}}}$ φορές
+\newpage
+\subsection{Newton-Raphson}
 Στην συνέχεια έχω τη συνάρτηση για την μέθοδο Newton-Raphson:
-\lstinputlisting[firstline=42, lastline=55]{ex1.py}
+\lstinputlisting[firstline=42, lastline=55]{ex1/ex1.py}
 
 Εδώ αρχικοποιώ τον πίνακα \texttt{temp\_l} με την τιμή
 εισόδου της συνάρτησης και το αποτέλεσμα μιας πρώτης εφαρμογής της
@@ -91,9 +39,10 @@ $N = {{\ln{b-a} - \ln{error}}\over{\ln{2}}}$ φορές
   στο τέλος του \texttt{while} ενώ ξεκινάει με τον δείκτη στο 1 αντι του 0
   για να μπορεί να γίνει ο έλεγχος
 \end{footnotesize}}
-\newpage
+
+\subsection{Τέμνουσα}
 Ακολουθέι η συνάρτηση της μεθόδου της τέμνουσας:
-\lstinputlisting[firstline=56, lastline=70]{ex1.py}
+\lstinputlisting[firstline=56, lastline=70]{ex1/ex1.py}
 
 Η συνάρτηση είναι αντίστοιχη με αυτή της Newton-Raphson.
 Χρειάζεται δύο αρχικές τιμές, και για να γίνει ο έλεγχος του \texttt{while},
@@ -104,12 +53,12 @@ $$x_{n+1} = x_n - {{f(x_n)(x_n - x_{n-1})} \over {f(x_n) - f(x_{n-1})}}$$
 
 Επιστρέφω την ρίζα, τον αριθμό επαναλήψεων καθως και τις 2 αρχικές τιμές.
 
-\newpage
+\subsection{Αποτελέσματα}
 Ακολουθεί η έξοδος του προγράμματος όταν το τρέχω με τις
 κατάλληλες αρχικές τιμές (βασισμένες στο διάγραμμα την συνάρτησης):
 
 \begin{lstlisting}[language=C, mathescape=true]
-$\dollar$ python ex1.py
+$\dollar$ python ex1/ex1.py
 ++++ Bisection ++++
 
 Root in [0.00,1.50] after 22 loops: f(0.857143) = -0.000000
@@ -134,12 +83,13 @@ f(2.000023) = 0.000000
 \end{lstlisting}
 
 \newpage
+\subsection{Παρατηρήσεις}
 Στο διάγραμμα που ακολουθεί βλέπουμε τις επαναλήψεις που
 χρειάζετε η μέθοδος Newton-Raphson σε σχέση με την αρχική τιμή
 που δίνεται
 
 \begin{center}
-  \includegraphics[scale = 0.7]{starting_point-loops.png}
+  \includegraphics[scale = 0.7]{ex1/starting_point-loops.png}
 \end{center}
 
 Παρατηρώ οτι για την ρίζα στο $0.857143$ η μέθοδος συγκλίνει τετραγωνικά
@@ -153,12 +103,7 @@ f(2.000023) = 0.000000
 επόμενο $x$ στην αναδρομή, όταν η κυρτώτητα αλλάζει γύρω απο την ρίζα
 ο αλγόριθμος ταλαντώνετε και αργεί να συγκλίνει σε έναν αριθμό που να ικανοποιεί
 το σφάλμα που θέσαμε.
-
-
-\end{document}
-
 %%% Local Variables:
-%%% coding: utf-8
 %%% mode: latex
-%%% TeX-engine: xetex
+%%% TeX-master: "../master"
 %%% End:
