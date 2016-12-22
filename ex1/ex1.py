@@ -43,21 +43,20 @@ def new_raph(start):
   temp_l = [start, start - (f(start)/f_der(start))]
 
   N = 1
-  while 0.0000005*abs(temp_l[N]) < abs(temp_l[N-1] - temp_l[N]):
+  while round(f(temp_l[-1]), 6) != 0.000000:
     temp =  temp_l[N] - (f(temp_l[N])/f_der(temp_l[N]))
     temp_l.append(temp)
     N = N + 1
 
   root = temp_l[N] 
 
-  #N-1 because the N=N+1 happens at the very end of the while loop
-  return root, N - 1, start
+  return root, N, start
 
-def intersection(a, b):
+def interpolation(a, b):
   temp_l = [a, b, b - ((f(b)*(b - a))/f(b) - f(a))]
 
   N = 1
-  while 0.0000005*abs(temp_l[N]) < abs(temp_l[N-1] - temp_l[N]):
+  while round(f(temp_l[-1]), 6) != 0.000000:
     temp =  temp_l[N] - (f(temp_l[N])*
                          (temp_l[N] - temp_l[N-1]))/(f(temp_l[N]) - f(temp_l[N-1]))
     temp_l.append(temp)
@@ -65,8 +64,7 @@ def intersection(a, b):
 
   root = temp_l[-1]
 
-  #N-1 for the same reason as the N-R method
-  return root, N - 1, a, b 
+  return root, N, a, b 
 
 #############
 # Bisection #
@@ -99,10 +97,10 @@ print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f"
 #################
 print("\n++++ Interpolation ++++\n")
 
-root, loops, a, b = intersection(0.7,0.9)
+root, loops, a, b = interpolation(0.7,0.9)
 print("Root found in [%.2f,%.2f] after %d iterations:" % (a, b, loops))
 print("f(%.6f) = %.6f\n" % (root, f(root)))
 
-root, loops, a, b = intersection(1.7,2.1)
+root, loops, a, b = interpolation(1.7,2.1)
 print("Root found in [%.2f,%.2f] after %d iterations:" % (a, b, loops))
 print("f(%.6f) = %.6f" % (root, f(root)))

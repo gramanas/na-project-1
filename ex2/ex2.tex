@@ -1,6 +1,49 @@
 \section{Άσκηση 2}
-\subsection{a}
 
+
+Ο κώδικας σε αυτήν την άσκηση είναι παρόμοιος με τον κώδικα της πρώτης
+με το μόνο άξιο σχολιασμού να είναι η τροποποιημένη μέθοδος της τέμνουσας:
+\lstinputlisting[firstline=58, lastline=74]{ex2/ex2.py}
+
+καθως η άσκηση λέει πως το $x_{n+3}$ αντικαθιστά το $x_n$
+δημιουργώ έναν πίνακα 3 θέσεων και χρησιμοποιώ τον τελεστή $\%$
+για να γίνεται αυτη η αντικατάσταση κυκλικά
+
+\subsection{Ερώτημα 1}
+
+Ακολουθούν τα αποτελέσματα με κατάλληλες αρχικοποιήσεις:
+\begin{lstlisting}[language=C, mathescape=true]
+$\dollar$ python ex2/ex2.py
+++++ almost-Bisection ++++
+
+Root in [0.80,0.90] after 25 loops: f(0.841067) = 0.000000
+
+Root in [0.95,1.10] after 7 loops: f(1.047667) = 0.000000
+
+Root in [2.30,2.80] after 25 loops: f(2.300524) = 0.000000
+
+++++ almost-Newton - Raphson ++++
+
+Starting at 0.80:
+after 4 iterations the root is: f(0.841069) = 0.000000
+
+Starting at 1.00:
+after 6 iterations the root is: f(1.044162) = -0.000000
+
+Starting at 2.50:
+after 4 iterations the root is: f(2.300524) = -0.000000
+
+++++ almost-Interpolation ++++
+
+Starting points: [1.00, 2.00, 3.00]. After 10 iterations:
+f(1.043381) = -0.000000
+
+Starting points: [0.70, 0.80, 0.90]. After 10 iterations:
+f(0.841069) = -0.000000
+
+Starting points: [2.20, 2.30, 2.40]. After 4 iterations:
+f(2.300524) = 0.000000
+\end{lstlisting}
 
 %%% Local Variables:
 %%% mode: latex

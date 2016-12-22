@@ -29,15 +29,14 @@ def bisect(a, b):
   a_1, b_1 = a, b
   root = random.uniform(a, b)
 
-  # number of times to repeat to achieve 6 points accuracy
-  N = int(ceil((log(b - a) - log(0.0000005)) / log(2)))
-
-  for i in range(0, N):
+  N = 0
+  while round(f(root),6) != 0:
     if (f(a) < 0 and f(root) > 0) or (f(a) > 0 and f(root) < 0):
       b = root
     elif (f(b) < 0 and f(root) > 0) or (f(b) > 0 and f(root) < 0):
       a = root
     root = random.uniform(a, b)
+    N = N +1
 
   return root, N, a_1, b_1
 
@@ -46,38 +45,37 @@ def new_raph(start):
             - (1/2)*((f(start)**2)*f_der_2(start))/(f_der(start)**3)]
 
   N = 1
-  while 0.0000005*abs(temp_l[N]) < abs(temp_l[N-1] - temp_l[N]):
+  while round(f(temp_l[-1]),6) != 0:
     temp =  temp_l[N] - (f(temp_l[N])/f_der(temp_l[N]))
     - (1/2)*((f(temp_l[N])**2)*f_der_2(temp_l[N]))/(f_der(temp_l[N])**3)
     temp_l.append(temp)
     N = N + 1
 
-  root = temp_l[N] 
+  root = temp_l[-1] 
 
-  #N-1 because the N=N+1 happens at the very end of the while loop
-  return root, N - 1, start
+  return root, N, start
 
-def intersection(a, b, c):
+def interpolation(a, b, c):
   x = [a, b, c]
 
   N = 0
-  while 0.0000005*abs(x[N%3]) < abs(x[N%3] - x[(N-1)%3]):
+  root = x[0]
+  while round(f(root),6) != 0:
     r = f(x[(N+2)%3])/f(x[(N+1)%3])
     q = f(x[(N)%3])/f(x[(N+1)%3])
     s = f(x[(N+2)%3])/f(x[(N)%3])
-    tmp = x[(N+2)%3] - (r*(r - q)*(x[(N+2)%3]-x[(N+1)%3])+(1 - r)*s*(x[(N+2)%3] - x[(N)%3]))/(q - 1)*(r - 1)*(s - 1)
+    tmp = x[(N+2)%3] - (r*(r - q)*(x[(N+2)%3]-x[(N+1)%3]) +
+                        (1 - r)*s*(x[(N+2)%3] - x[(N)%3]))/((q - 1)*(r - 1)*(s - 1))
     x[N%3] = tmp
     N = N + 1
+    root = x[(N)%3]
 
-  root = x[(N)%3]
-
-  #N-1 for the same reason as the N-R method
-  return root, N - 1, a, b 
+  return root, N - 1, a, b, c
 
 #############
 # Bisection #
 #############
-print("\n++++ Bisection ++++\n")
+print("\n++++ almost-Bisection ++++\n")
 
 root, loops, a, b = bisect(0.8,0.9)
 print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f\n"
@@ -94,14 +92,14 @@ print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f"
 ####################
 # Newton - Raphson #
 ####################
-print("\n++++ Newton - Raphson ++++\n")
+print("\n++++ almost-Newton - Raphson ++++\n")
 
 root, loops, start = new_raph(0.8)
 print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f\n"
       % (start, loops, root, f(root)))
   
 root, loops, start = new_raph(1)
-print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f"
+print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f\n"
       % (start, loops, root, f(root)))
 
 root, loops, start = new_raph(2.5)
@@ -111,14 +109,22 @@ print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f"
 #################
 # Interpolation #
 #################
-print("\n++++ Interpolation ++++\n")
+print("\n++++ almost-Interpolation ++++\n")
 
-root, loops, a, b = intersection(0,1,2)
-print("Root found in [%.2f,%.2f] after %d iterations:" % (a, b, loops))
+root, loops, a, b, c = interpolation(1,2,3)
+print("Starting points: [%.2f, %.2f, %.2f]. After %d iterations:" % (a, b, c, loops))
 print("f(%.6f) = %.6f\n" % (root, f(root)))
 
-# root, loops, a, b = intersection(1.7,2.1)
-# print("Root found in [%.2f,%.2f] after %d iterations:" % (a, b, loops))
-# print("f(%.6f) = %.6f" % (root, f(root)))
+root, loops, a, b, c = interpolation(.7,.8,.9)
+print("Starting points: [%.2f, %.2f, %.2f]. After %d iterations:" % (a, b, c, loops))
+print("f(%.6f) = %.6f\n" % (root, f(root)))
 
+root, loops, a, b, c = interpolation(2.2,2.3,2.4)
+print("Starting points: [%.2f, %.2f, %.2f]. After %d iterations:" % (a, b, c, loops))
+print("f(%.6f) = %.6f\n" % (root, f(root)))
+
+for i in range(10):
+  root, loops, a, b = bisect(0,3)
+  print("%d: Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f"
+        % (i, a, b, loops, root, f(root)))
 

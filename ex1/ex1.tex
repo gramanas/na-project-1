@@ -24,7 +24,7 @@ $N = {{\ln{(b-a)} - \ln{(error)}}\over{\ln{2}}}$ φορές
 \newpage
 \subsection{Newton-Raphson}
 Στην συνέχεια έχω τη συνάρτηση για την μέθοδο Newton-Raphson:
-\lstinputlisting[firstline=42, lastline=55]{ex1/ex1.py}
+\lstinputlisting[firstline=42, lastline=54]{ex1/ex1.py}
 
 Εδώ αρχικοποιώ τον πίνακα \texttt{temp\_l} με την τιμή
 εισόδου της συνάρτησης και το αποτέλεσμα μιας πρώτης εφαρμογής της
@@ -33,16 +33,10 @@ $N = {{\ln{(b-a)} - \ln{(error)}}\over{\ln{2}}}$ φορές
 επιτευχθεί η επιθυμιτή ακρίβεια (6 δεκαδικά ψηδία)
 
 Επιστρέφω την ρίζα, τον αριθμό επαναλήψεων και το σημείο εκκίνησης.
-\textcolor{mygray}{
-\begin{footnotesize}
-  Ο αριθμός επαναλήψεων είναι Ν-1 γιατί η αύξηση του δείκτη γίνεται
-  στο τέλος του \texttt{while} ενώ ξεκινάει με τον δείκτη στο 1 αντι του 0
-  για να μπορεί να γίνει ο έλεγχος
-\end{footnotesize}}
 
 \subsection{Τέμνουσα}
 Ακολουθέι η συνάρτηση της μεθόδου της τέμνουσας:
-\lstinputlisting[firstline=56, lastline=70]{ex1/ex1.py}
+\lstinputlisting[firstline=55, lastline=68]{ex1/ex1.py}
 
 Η συνάρτηση είναι αντίστοιχη με αυτή της Newton-Raphson.
 Χρειάζεται δύο αρχικές τιμές, και για να γίνει ο έλεγχος του \texttt{while},
@@ -68,18 +62,18 @@ Root in [1.50,3.00] after 22 loops: f(2.000004) = 0.000000
 ++++ Newton - Raphson ++++
 
 Starting at 1.00:
-after 5 iterations the root is: f(0.857143) = -0.000000
+after 5 iterations the root is: f(0.857143) = 0.000000
 
 Starting at 3.00:
-after 29 iterations the root is: f(2.000011) = 0.000000
+after 14 iterations the root is: f(2.005224) = 0.000000
 
 ++++ Interpolation ++++
 
-Root found in [0.70,0.90] after 11 iterations:
-f(0.857143) = -0.000000
+Root found in [0.70,0.90] after 10 iterations:
+f(0.857143) = 0.000000
 
-Root found in [1.70,2.10] after 52 iterations:
-f(2.000023) = 0.000000
+Root found in [1.70,2.10] after 20 iterations:
+f(2.004977) = 0.000000
 \end{lstlisting}
 
 \newpage
