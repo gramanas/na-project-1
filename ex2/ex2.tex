@@ -45,6 +45,86 @@ Starting points: [2.20, 2.30, 2.40]. After 4 iterations:
 f(2.300524) = 0.000000
 \end{lstlisting}
 
+\subsection{Ερώτημα 2}
+Εκτελώντας τον αλγόριθμο 10 φορές παρατηρώ οτι κάθε φορά συγκλίνει σε μια ρίζα
+με διαφορετικό αριθμό επαναλήψεων, πράγμα αναμενόμενο καθως
+διαλέγει την ρίζα τυχαία.
+\begin{lstlisting}[language=C, mathescape=true]
+0: Root in [0.00,3.00] after 32 loops: f(0.841069) = -0.000000
+1: Root in [0.00,3.00] after 48 loops: f(2.300524) = 0.000000
+2: Root in [0.00,3.00] after 28 loops: f(0.841069) = -0.000000
+3: Root in [0.00,3.00] after 25 loops: f(2.300524) = 0.000000
+4: Root in [0.00,3.00] after 34 loops: f(2.300524) = -0.000000
+5: Root in [0.00,3.00] after 40 loops: f(2.300524) = -0.000000
+6: Root in [0.00,3.00] after 48 loops: f(2.300524) = -0.000000
+7: Root in [0.00,3.00] after 36 loops: f(2.300524) = -0.000000
+8: Root in [0.00,3.00] after 19 loops: f(0.841070) = -0.000000
+9: Root in [0.00,3.00] after 34 loops: f(2.300524) = 0.000000
+\end{lstlisting}
+
+\subsection{Ερώτημα 3}
+
+Παρατηρώ πως η μέθοδος διχωτόμησης είναι σαφώς καλύτερη όταν επιλέγω το μεσαίο
+σημείο αντί κάποιου τυχαίου.
+
+Η μέθοδος N-R είναι παρόμοια χωρίς μεγάλες διαφορές και η μέθοδος της
+τέμνουσας είναι καλύτερη στην εναλακτική της μορφή με τα 3 αρχικά σημεία
+καθως γίνεται καλύτερη προσέγκιση με καμπύλη εναντι μιας ευθείας.
+
+Ακολουθούν αναλυτικά τα αποτελέσματα της σύγκρισης:
+\begin{lstlisting}[language=C, mathescape=true]
+++++ almost-Bisection ++++
+Root in [0.80,0.90] after 18 loops: f(0.841069) = -0.000000
+Root in [0.95,1.10] after 19 loops: f(1.047192) = 0.000000
+Root in [2.30,2.80] after 20 loops: f(2.300524) = 0.000020
+
+++++ almost-Bisection ++++
+Root in [0.80,0.90] after 20 loops: f(0.841069) = -0.000000
+Root in [0.95,1.10] after 8 loops: f(1.045441) = -0.000000
+Root in [2.30,2.80] after 35 loops: f(2.300524) = -0.000000
+
+++++ Newton - Raphson ++++
+Starting at 0.80:
+after 4 iterations the root is: f(0.841069) = 0.000000
+Starting at 1.00:
+after 6 iterations the root is: f(1.043596) = -0.000000
+Starting at 2.50:
+after 4 iterations the root is: f(2.300524) = -0.000000
+
+++++ almost-Newton - Raphson ++++
+Starting at 0.80:
+after 4 iterations the root is: f(0.841069) = 0.000000
+Starting at 1.00:
+after 6 iterations the root is: f(1.044162) = -0.000000
+Starting at 2.50:
+after 4 iterations the root is: f(2.300524) = -0.000000
+
+++++ Interpolation ++++
+Starting points: [1.00, 3.00]. After 17 iterations:
+f(1.043599) = -0.000000
+Starting points: [0.70, 0.90]. After 31 iterations:
+f(0.841069) = 0.000000
+Starting points: [2.20, 2.40]. After 29 iterations:
+f(13.610043) = -0.000000
+
+++++ almost-Interpolation ++++
+Starting points: [1.00, 2.00, 3.00]. After 10 iterations:
+f(1.043381) = -0.000000
+Starting points: [0.70, 0.80, 0.90]. After 10 iterations:
+f(0.841069) = -0.000000
+Starting points: [2.20, 2.30, 2.40]. After 4 iterations:
+f(2.300524) = 0.000000
+\end{lstlisting}
+
+
+
+
+
+
+
+
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../master"

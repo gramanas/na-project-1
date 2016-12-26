@@ -25,7 +25,7 @@ plt.plot(t, f(t), c='r')
 plt.grid(True)
 plt.show()
 
-def bisect(a, b):
+def al_bisect(a, b):
   a_1, b_1 = a, b
   root = random.uniform(a, b)
 
@@ -40,7 +40,7 @@ def bisect(a, b):
 
   return root, N, a_1, b_1
 
-def new_raph(start):
+def al_new_raph(start):
   temp_l = [start, start - (f(start)/f_der(start))
             - (1/2)*((f(start)**2)*f_der_2(start))/(f_der(start)**3)]
 
@@ -55,7 +55,7 @@ def new_raph(start):
 
   return root, N, start
 
-def interpolation(a, b, c):
+def al_interpolation(a, b, c):
   x = [a, b, c]
 
   N = 0
@@ -72,10 +72,65 @@ def interpolation(a, b, c):
 
   return root, N - 1, a, b, c
 
+def bisect(a, b):
+  a_1, b_1 = a, b
+  root = (a + b) / 2
+
+  # number of times to repeat to achieve 6 points accuracy
+  N = int(ceil((log(b - a) - log(0.0000005)) / log(2)))
+
+  for i in range(0, N):
+    if (f(a) < 0 and f(root) > 0) or (f(a) > 0 and f(root) < 0):
+      b = root
+    elif (f(b) < 0 and f(root) > 0) or (f(b) > 0 and f(root) < 0):
+      a = root
+    root = (a + b) / 2
+
+  return root, N, a_1, b_1
+
+def new_raph(start):
+  temp_l = [start, start - (f(start)/f_der(start))]
+
+  N = 1
+  while round(f(temp_l[-1]), 6) != 0.000000:
+    temp =  temp_l[N] - (f(temp_l[N])/f_der(temp_l[N]))
+    temp_l.append(temp)
+    N = N + 1
+
+  root = temp_l[N] 
+
+  return root, N, start
+
+def interpolation(a, b):
+  temp_l = [a, b, b - ((f(b)*(b - a))/f(b) - f(a))]
+
+  N = 1
+  while round(f(temp_l[-1]), 6) != 0.000000:
+    temp =  temp_l[N] - (f(temp_l[N])*
+                         (temp_l[N] - temp_l[N-1]))/(f(temp_l[N]) - f(temp_l[N-1]))
+    temp_l.append(temp)
+    N = N + 1
+
+  root = temp_l[-1]
+
+  return root, N, a, b 
+
 #############
 # Bisection #
 #############
 print("\n++++ almost-Bisection ++++\n")
+
+root, loops, a, b = al_bisect(0.8,0.9)
+print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f\n"
+      % (a, b, loops, root, f(root)))
+
+root, loops, a, b = al_bisect(0.95,1.10)
+print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f\n"
+      % (a, b, loops, root, f(root)))
+
+root, loops, a, b = al_bisect(2.3,2.8)
+print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f"
+      % (a, b, loops, root, f(root)))
 
 root, loops, a, b = bisect(0.8,0.9)
 print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f\n"
@@ -94,6 +149,81 @@ print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f"
 ####################
 print("\n++++ almost-Newton - Raphson ++++\n")
 
+root, loops, start = al_new_raph(0.8)
+print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f\n"
+      % (start, loops, root, f(root)))
+  
+root, loops, start = al_new_raph(1)
+print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f\n"
+      % (start, loops, root, f(root)))
+
+root, loops, start = al_new_raph(2.5)
+print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f"
+      % (start, loops, root, f(root)))
+
+#################
+# Interpolation #
+#################
+print("\n++++ almost-Interpolation ++++\n")
+
+root, loops, a, b, c = al_interpolation(1,2,3)
+print("Starting points: [%.2f, %.2f, %.2f]. After %d iterations:" % (a, b, c, loops))
+print("f(%.6f) = %.6f\n" % (root, f(root)))
+
+root, loops, a, b, c = al_interpolation(.7,.8,.9)
+print("Starting points: [%.2f, %.2f, %.2f]. After %d iterations:" % (a, b, c, loops))
+print("f(%.6f) = %.6f\n" % (root, f(root)))
+
+root, loops, a, b, c = al_interpolation(2.2,2.3,2.4)
+print("Starting points: [%.2f, %.2f, %.2f]. After %d iterations:" % (a, b, c, loops))
+print("f(%.6f) = %.6f\n" % (root, f(root)))
+
+for i in range(10):
+  root, loops, a, b = al_bisect(0,3)
+  print("%d: Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f"
+        % (i, a, b, loops, root, f(root)))
+
+###############
+# Comparisons #
+###############
+
+#############
+# Bisection #
+#############
+
+print("\n++++ almost-Bisection ++++\n")
+
+root, loops, a, b = bisect(0.8,0.9)
+print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f\n"
+      % (a, b, loops, root, f(root)))
+
+root, loops, a, b = bisect(0.95,1.10)
+print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f\n"
+      % (a, b, loops, root, f(root)))
+
+root, loops, a, b = bisect(2.3,2.8)
+print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f\n"
+      % (a, b, loops, root, f(root)))
+
+print("\n++++ almost-Bisection ++++\n")
+
+root, loops, a, b = al_bisect(0.8,0.9)
+print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f\n"
+      % (a, b, loops, root, f(root)))
+
+root, loops, a, b = al_bisect(0.95,1.10)
+print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f\n"
+      % (a, b, loops, root, f(root)))
+
+root, loops, a, b = al_bisect(2.3,2.8)
+print("Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f"
+      % (a, b, loops, root, f(root)))
+
+####################
+# Newton - Raphson #
+####################
+print("\n++++ Newton - Raphson ++++\n")
+
 root, loops, start = new_raph(0.8)
 print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f\n"
       % (start, loops, root, f(root)))
@@ -106,25 +236,47 @@ root, loops, start = new_raph(2.5)
 print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f"
       % (start, loops, root, f(root)))
 
+print("\n++++ almost-Newton - Raphson ++++\n")
+
+root, loops, start = al_new_raph(0.8)
+print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f\n"
+      % (start, loops, root, f(root)))
+  
+root, loops, start = al_new_raph(1)
+print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f\n"
+      % (start, loops, root, f(root)))
+
+root, loops, start = al_new_raph(2.5)
+print("Starting at %.2f:\nafter %d iterations the root is: f(%.6f) = %.6f"
+      % (start, loops, root, f(root)))
+
 #################
 # Interpolation #
 #################
+print("\n++++ Interpolation ++++\n")
+
+root, loops, a, b = interpolation(1,3)
+print("Starting points: [%.2f, %.2f]. After %d iterations:" % (a, b, loops))
+print("f(%.6f) = %.6f\n" % (root, f(root)))
+
+root, loops, a, b = interpolation(.7,.9)
+print("Starting points: [%.2f, %.2f]. After %d iterations:" % (a, b, loops))
+print("f(%.6f) = %.6f\n" % (root, f(root)))
+
+root, loops, a, b = interpolation(2.2,2.4)
+print("Starting points: [%.2f, %.2f]. After %d iterations:" % (a, b, loops))
+print("f(%.6f) = %.6f\n" % (root, f(root)))
+
 print("\n++++ almost-Interpolation ++++\n")
 
-root, loops, a, b, c = interpolation(1,2,3)
+root, loops, a, b, c = al_interpolation(1,2,3)
 print("Starting points: [%.2f, %.2f, %.2f]. After %d iterations:" % (a, b, c, loops))
 print("f(%.6f) = %.6f\n" % (root, f(root)))
 
-root, loops, a, b, c = interpolation(.7,.8,.9)
+root, loops, a, b, c = al_interpolation(.7,.8,.9)
 print("Starting points: [%.2f, %.2f, %.2f]. After %d iterations:" % (a, b, c, loops))
 print("f(%.6f) = %.6f\n" % (root, f(root)))
 
-root, loops, a, b, c = interpolation(2.2,2.3,2.4)
+root, loops, a, b, c = al_interpolation(2.2,2.3,2.4)
 print("Starting points: [%.2f, %.2f, %.2f]. After %d iterations:" % (a, b, c, loops))
 print("f(%.6f) = %.6f\n" % (root, f(root)))
-
-for i in range(10):
-  root, loops, a, b = bisect(0,3)
-  print("%d: Root in [%.2f,%.2f] after %d loops: f(%.6f) = %.6f"
-        % (i, a, b, loops, root, f(root)))
-
