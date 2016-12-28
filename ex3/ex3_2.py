@@ -16,33 +16,33 @@ L = []
 for l in Atmp:
   fields = l.split()
   nums = []
-  l = []
   for f in fields:
     nums.append(float(f))
-    l.append(0.0)
   A.append(nums)
-  L.append(l)
 
 A = mat(A)
-L = mat(L)
 
-n = shape(A)[1]
+def cholesky(A):
+  n = shape(A)[1]
 
-for k in range(n):
-  for i in range(n):
-    if k == i:
-      temp = 0
-      for j in range(k):
-        temp = temp +L[k,j]**2
-      L[k,k] = (A[k,k] - temp)**(1/2)
-    else:
-      temp = 0
-      for j in range(i):
-        temp = temp + L[i,j]*L[k,j]
-      L[k,i] = (A[k,i] - temp)/L[i,i]
-    if k < i:
-      L[k,i] = 0
+  L = empty([n,n])
+  L = mat(L)
+  
+  for k in range(n):
+    for i in range(n):
+      if k == i:
+        temp = 0
+        for j in range(k):
+          temp = temp + L[k,j]**2
+        L[k,k] = (A[k,k] - temp)**(1/2)
+      else:
+        temp = 0
+        for j in range(i):
+          temp = temp + L[i,j]*L[k,j]
+        L[k,i] = (A[k,i] - temp)/L[i,i]
+      if k < i:
+        L[k,i] = 0
 
-pprint(A)
-pprint(L)
+  return(L)
 
+pprint(cholesky(A))
