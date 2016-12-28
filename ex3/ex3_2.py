@@ -32,7 +32,6 @@ for k in range(n):
   for i in range(n):
     if k == i:
       temp = 0
-      print("ey!")
       for j in range(k):
         temp = temp +L[k,j]**2
       L[k,k] = (A[k,k] - temp)**(1/2)
@@ -41,6 +40,8 @@ for k in range(n):
       for j in range(i):
         temp = temp + L[i,j]*L[k,j]
       L[k,i] = (A[k,i] - temp)/L[i,i]
+    if k < i:
+      L[k,i] = 0
 
 pprint(A)
 pprint(L)
